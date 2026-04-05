@@ -1,0 +1,315 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   THEME ROOT — core tokens exposed as CSS vars (editable)
+   ============================================================ */
+:root {
+  --cream: #f4ecd6;
+  --cream-soft: #eee4c8;
+  --cream-deep: #e5d8b0;
+  --ink: #241810;
+  --ink-soft: #4a3524;
+  --ink-muted: #8a7558;
+  --mustard: #c9b44a;
+  --mustard-deep: #a89432;
+  --ember: #e8743b;
+  --sage: #7a8b4f;
+
+  --radius: 4px;
+  --radius-lg: 8px;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  background: var(--cream);
+  color: var(--ink-soft);
+  font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+}
+
+/* Body gets 100vh top padding to host the splash; splash fades as user scrolls */
+body.has-splash {
+  padding-top: 100vh;
+}
+body.splash-done #splash {
+  display: none;
+}
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+.h-display {
+  font-family: "Fraunces", serif;
+  font-weight: 400;
+  font-variation-settings: "SOFT" 30, "WONK" 1;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  color: var(--ink);
+}
+.h-italic {
+  font-style: italic;
+  font-variation-settings: "SOFT" 100, "WONK" 1;
+  color: var(--ember);
+}
+.eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.num-tag {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: var(--ember);
+  letter-spacing: 0.1em;
+}
+
+/* ============================================================
+   DECORATIVE — grain, rules, frames
+   ============================================================ */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+.rule {
+  height: 1px;
+  background: var(--cream-deep);
+  border: 0;
+}
+.frame {
+  background: var(--ink);
+  padding: 10px 10px 12px;
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 1px 0 rgba(36, 24, 16, 0.1),
+    0 30px 60px -20px rgba(36, 24, 16, 0.35),
+    0 10px 20px -10px rgba(36, 24, 16, 0.2);
+}
+.frame img {
+  border-radius: 4px;
+  display: block;
+  width: 100%;
+}
+.frame-dots {
+  display: flex;
+  gap: 5px;
+  padding: 4px 0 8px 2px;
+}
+.frame-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(244, 236, 214, 0.25);
+}
+.tilt-l {
+  transform: rotate(-1.2deg);
+}
+.tilt-r {
+  transform: rotate(1.2deg);
+}
+
+/* ============================================================
+   BUTTONS & LINKS
+   ============================================================ */
+.btn-primary {
+  background: var(--mustard);
+  color: var(--ink);
+  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  transition: all 0.2s ease;
+  border: 1px solid var(--mustard-deep);
+  box-shadow: 0 1px 0 var(--mustard-deep);
+  display: inline-block;
+}
+.btn-primary:hover {
+  background: var(--mustard-deep);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 var(--mustard-deep);
+}
+.btn-ghost {
+  color: var(--ink);
+  font-weight: 500;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  display: inline-block;
+}
+.btn-ghost:hover {
+  border-color: var(--cream-deep);
+  background: var(--cream-soft);
+}
+a.link-u {
+  background-image: linear-gradient(var(--ember), var(--ember));
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.25s ease;
+}
+a.link-u:hover {
+  background-size: 100% 2px;
+}
+
+/* scribble highlight */
+.scribble {
+  position: relative;
+  display: inline-block;
+}
+.scribble::after {
+  content: "";
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  bottom: -6px;
+  height: 8px;
+  background: var(--mustard);
+  opacity: 0.55;
+  z-index: -1;
+  border-radius: 3px;
+  transform: skew(-8deg, -1deg);
+}
+
+/* ============================================================
+   STACKING — content sits above the fixed background paths
+   ============================================================ */
+header,
+section,
+footer,
+hr {
+  position: relative;
+  z-index: 1;
+}
+
+/* Dark section (fraud) */
+.section-dark {
+  background: var(--ink);
+  color: var(--cream);
+}
+.section-dark .h-display {
+  color: var(--cream);
+}
+.section-dark .eyebrow {
+  color: var(--mustard);
+}
+
+/* Stat number */
+.stat-num {
+  font-family: "Fraunces", serif;
+  font-variation-settings: "SOFT" 30, "WONK" 1;
+  font-size: clamp(44px, 5vw, 68px);
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.caption-card {
+  background: var(--cream-soft);
+  border: 1px solid var(--cream-deep);
+  padding: 20px 22px;
+  border-radius: var(--radius);
+}
+
+/* Marquee */
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-track {
+  display: inline-flex;
+  gap: 3rem;
+  animation: marquee 40s linear infinite;
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ============================================================
+   SPLASH
+   ============================================================ */
+#splash {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cream);
+  will-change: opacity, transform;
+}
+#splash .splash-mark {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  font-size: clamp(72px, 14vw, 200px);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 0.02em;
+}
+#splash .splash-mark .a {
+  color: var(--ink);
+}
+#splash .splash-mark .b {
+  color: var(--ember);
+}
+#splash .splash-scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  animation: bob 2s ease-in-out infinite;
+}
+@keyframes bob {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate(-50%, 6px);
+    opacity: 1;
+  }
+}
+#splash .splash-mark .a,
+#splash .splash-mark .b {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: splash-in 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+#splash .splash-mark .b {
+  animation-delay: 0.2s;
+}
+@keyframes splash-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
